@@ -1,9 +1,9 @@
 {
   "name": "career-crafter",
   "version": "0.0.0",
-  "main": "app.jsx",
+  "main": "./src/main.jsx",
   "scripts": {
-    "start": "nodemon server/server.js",
+    "start": "webpack-dev-server --open",
     "build": "webpack --mode production",
     "dev": "concurrently \"nodemon server/server.js\" \"webpack-dev-server --mode development\""
   },
@@ -14,15 +14,16 @@
     "react-router-dom": "^6.14.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.1",
-    "@babel/preset-env": "^7.21.5",
-    "@babel/preset-react": "^7.18.6",
+    "@babel/core": "^7.22.8",
+    "@babel/preset-env": "^7.22.7",
+    "@babel/preset-react": "^7.22.5",
     "babel": "^6.23.0",
     "babel-loader": "^9.1.2",
     "concurrently": "^8.0.1",
     "css-loader": "^6.7.4",
     "html-webpack-plugin": "^5.5.1",
     "style-loader": "^3.3.3",
+    "typescript": "^5.1.6",
     "webpack": "^5.83.1",
     "webpack-cli": "^5.1.1",
     "webpack-dev-server": "^4.15.0"

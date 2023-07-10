@@ -1,8 +1,11 @@
-import React from 'react';
-
+import React from "react";
+import NavBar from "../client/Components/NavBar.jsx";
 
 export default function Root() {
-return (
-  <div>Hello World!</div>
-)
+  return (
+    <>
+      <NavBar className="NavBar" />
+      <div>Hello World!</div>
+    </>
+  );
 }
