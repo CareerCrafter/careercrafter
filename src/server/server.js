@@ -26,10 +26,20 @@ app.use(express.static("client"));
 
 
 
-app.use(({ code, error }, req, res, next) => {
-  res.status(code).json({ error: error.message });
-});
+// app.use(({ code, error }, req, res, next) => {
+//   res.status(code).json({ error: error.message });
+// });
 
+
+/**
+ * define route handlers
+ */
+const apiRouter = require('./routes/api');
+app.use('/api', apiRouter);
+
+
+// catch-all route handler for any requests to an unknown route
+app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
 
 
 
