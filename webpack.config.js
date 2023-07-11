@@ -19,7 +19,7 @@ module.exports = {
     historyApiFallback: true,
   },
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "dist/"),
     filename: "bundle.js",
     publicPath: "/",
   },
@@ -28,7 +28,6 @@ module.exports = {
       template: "./client/index.html",
     }),
   ],
-
   module: {
     rules: [
       {
@@ -39,7 +38,10 @@ module.exports = {
           options: {
             presets: [
               ["@babel/preset-env", { targets: "defaults" }],
-              ["@babel/preset-react", { targets: "defaults", "runtime": "automatic"}],
+              [
+                "@babel/preset-react",
+                { targets: "defaults", runtime: "automatic" },
+              ],
             ],
           },
         },
@@ -47,6 +49,14 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: "file-loader",
+          },
+        ],
       },
     ],
   },
