@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Wine = () => {
-  return (
-    <div>Wine</div>
-  )
-}
+  return <div style={{ backgroundColor: "orange" }}>Wine</div>;
+};
 
-export default Wine
+export default Wine;

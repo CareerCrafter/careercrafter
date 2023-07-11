@@ -16,9 +16,9 @@ body {
 }
 
 
-.Navbar {
-  color: white;
-  /* background-color: #00A69B; */
+.NavBar {
+  color: rgb(15, 14, 14);
+  background-color: #00A69B;
   display: flex;
   align-items: center;
   justify-content:space-evenly;

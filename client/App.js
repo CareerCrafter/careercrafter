@@ -9,25 +9,23 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    children: [
+      {
+        path: "/winelist",
+        element: <Wine />,
+      },
+    ],
   },
   {
-    path:"/login",
-    element: <Login />
+    path: "/login",
+    element: <Login />,
   },
   {
-    path:"/winelist",
-    element: <Wine/>
+    path: "/vineyard",
+    element: <Vineyard />,
   },
-  {
-    path:"/vineyard",
-    element: <Vineyard/>
-  }
 ]);
 
 export default function App() {
-  return (
-  <RouterProvider 
-    router={router}>
-  </RouterProvider>
-  );
+  return <RouterProvider router={router}></RouterProvider>;
 }

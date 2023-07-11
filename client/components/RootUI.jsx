@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import NavBar from "../components/NavBar.jsx";
+import NavBar from "./NavBar.jsx";
 import winebar from "../images/winebar.png";
-import AgeModal from "../components/AgeModal.jsx";
-
+import AgeModal from "./AgeModal.jsx";
+import { Outlet } from "react-router-dom";
 export default function Homepage() {
   const [open, setOpen] = useState(true);
   return (
@@ -17,10 +17,10 @@ export default function Homepage() {
         }}
       >
         <h3 className="Title">WineCrafters</h3>
-        <NavBar className="NavBar" />
         <div className="modal">
           <AgeModal open={open} setOpen={setOpen}></AgeModal>
         </div>
+        <Outlet />
       </div>
     </>
   );
