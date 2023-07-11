@@ -1,23 +1,16 @@
-const express = requrie('express');
+const express = require('express');
+const wineController = require('../controllers/wineController')
 
 
 const router = express.Router();
 
-// router.[<POST | PATCH | GET | DELETE>]('/', (req, res, next) => {
+router.post('/', wineController.addWine, (req, res) =>
+    res.status(201).json(res.locals.newWine)
+);
 
-
-// })
-
-// router.[<POST | PATCH | GET | DELETE>]('/', (req, res, next) => {
-
-
-// })
-
-
-// router.[<POST | PATCH | GET | DELETE>]('/', (req, res, next) => {
-
-
-// })
+router.get('/', wineController.getWines, (req, res) => {
+    res.status(200).json(res.locals.allWines)
+})
 
 
 

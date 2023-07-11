@@ -23,21 +23,13 @@ app.use(express.static(path.resolve(__dirname, "../dist")));
 app.use(express.static("client"));
 
 
-// app.use(({ code, error }, req, res, next) => {
-//   res.status(code).json({ error: error.message });
-// });
 
-/**
- * define route handlers
- */
 
-app.use('/api/signup', signupRouter)
+//define route handlers
+ 
 
-// app.use('/api', apiRouter);
+app.use('/api', apiRouter);
 
-// app.post('/winelist', wineController.addWine, (req, res) =>
-//     res.status(201).json(res.locals.newWine)
-// );
 
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
