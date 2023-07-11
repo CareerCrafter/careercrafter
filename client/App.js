@@ -4,6 +4,7 @@ import Root from "./routes/Root.jsx";
 import Login from "./routes/Login.jsx";
 import Wine from "./routes/Wine.jsx";
 import Vineyard from "./routes/Vineyard.jsx";
+import AddWine from "./routes/AddWine.jsx";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
       {
         path: "/winelist",
         element: <Wine />,
+      },
+      {
+        path: "/addwine",
+        element: <AddWine />,
       },
     ],
   },

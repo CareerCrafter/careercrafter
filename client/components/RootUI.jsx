@@ -17,10 +17,12 @@ export default function Homepage() {
         }}
       >
         <h3 className="Title">WineCrafters</h3>
+        <div>
+          <Outlet />
+        </div>
         <div className="modal">
           <AgeModal open={open} setOpen={setOpen}></AgeModal>
         </div>
-        <Outlet />
       </div>
     </>
   );
