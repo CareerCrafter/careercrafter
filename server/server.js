@@ -5,7 +5,10 @@ require("dotenv").config();
 // import path from 'path';
 const path = require("path");
 const express = require("express");
+const apiRouter = require('./routes/api');
 const cookieParser = require("cookie-parser");
+const wineController = require("./controllers/wineController");
+const signupRouter = require('./routes/signupRouter')
 //import type { Request, Response, NextFunction } from 'express'; // typescript types
 //----------------SET UP EXPRESS APP----------//
 const port = 3000;
@@ -27,8 +30,14 @@ app.use(express.static("client"));
 /**
  * define route handlers
  */
-const apiRouter = require('./routes/api');
-app.use('/api', apiRouter);
+
+app.use('/api/signup', signupRouter)
+
+// app.use('/api', apiRouter);
+
+// app.post('/winelist', wineController.addWine, (req, res) =>
+//     res.status(201).json(res.locals.newWine)
+// );
 
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));

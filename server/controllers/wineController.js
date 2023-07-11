@@ -20,6 +20,7 @@ wineController.getWines = async (req, res, next) => {
     }
 };
 wineController.addWine = (req, res, next) => {
+    console.log('adding wine controler hit');
     const {name, alcohol_percent, region, score, notes, date} = req.body;
     const queryObj = {
         text : 'INSERT INTO wines(name, alcohol_percent, region, score, notes, date) VALUES($1, $2, $3, $4, $5, $6) RETURNING *',
