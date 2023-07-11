@@ -1,4 +1,3 @@
-import { separateOperations } from "graphql";
 import React from "react";
 
 export default function AgeModal({ open, setOpen }) {

@@ -19,7 +19,7 @@ module.exports = {
     historyApiFallback: true,
   },
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "dist/"),
     filename: "bundle.js",
     publicPath: "/",
   },
@@ -28,7 +28,6 @@ module.exports = {
       template: "./client/index.html",
     }),
   ],
-
   module: {
     rules: [
       {
