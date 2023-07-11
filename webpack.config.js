@@ -38,7 +38,10 @@ module.exports = {
           options: {
             presets: [
               ["@babel/preset-env", { targets: "defaults" }],
-              ["@babel/preset-react", { targets: "defaults", "runtime": "automatic"}],
+              [
+                "@babel/preset-react",
+                { targets: "defaults", runtime: "automatic" },
+              ],
             ],
           },
         },
@@ -46,6 +49,14 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: "file-loader",
+          },
+        ],
       },
     ],
   },

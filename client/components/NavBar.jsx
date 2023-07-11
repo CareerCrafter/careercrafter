@@ -12,38 +12,25 @@ export default function NavBar() {
   }
 
   return (
-  <div className="Navbar">
-  
- 
-    
-    <div>
-      <Link className="navbar-menu" to={'/winelist'}>
-        Wine 
+    <>
+    <div className="NavBar">
+      <Link className="navbar-menu" to="/winelist">
+        WINE LIST
       </Link>
-    </div>
-    <div>
-      <Link className="navbar-menu" to={'/vineyard'}>
-        Vineyard
+      
+      <Link className="navbar-menu" to="/addwine">
+        ADD WINE
       </Link>
-    </div>
-    {/* <div>
-      <Link className="navbar-menu" to={'/login'}>
-        Login 
-      </Link>
-    </div> */}
-    <div>
       <Link className="navbar-menu">
-        
         <button
           onClick={handleSignout}
         >
-          <CgLogOut/>
-          
+          <CgLogOut />
+
         </button>
       </Link>
     </div>
-
-
     
-  </div>);
+    </>
+);
 }
