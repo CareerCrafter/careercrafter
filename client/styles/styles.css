@@ -86,17 +86,32 @@ body {
   .routecontainersleft{
     border-width: 1px;
     background-color: rgba(157, 106, 39, 0.5);
-
     width: 20%;
-    height: 100%;
-    position: absolute;
-    align-items: center;
+    /* height: 100vh; */
     border-radius: 15px;
     padding: 20px;
     display: flex;
     align-content: center;
     justify-content: center;
 
+  }
+  .selectwinecontainer{
+    border-width: 1px;
+    background-color: rgba(157, 106, 39, 0.5);
+    margin-left: 2%;
+    border-radius: 15px;
+
+    /* width: 20%;
+    border-radius: 15px;
+    padding: 20px;
+    /* display: flex;
+    align-content: center;
+    justify-content: center; */
+  }
+
+  .hey{
+    display: flex;
+    height: 100vh;
   }
 
 
