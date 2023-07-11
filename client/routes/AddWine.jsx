@@ -12,28 +12,39 @@ export default function AddWine() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const postData = async () => {
-      console.log('postin')
+      console.log("postin");
       try {
-        console.log('postin2')
+        console.log("postin2");
         const response = await fetch("/api/winelist", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         });
-      } catch (err) {
 
+        console.log("idk");
+      } catch (err) {
         console.log("error");
+      } finally {
+        setFormData({
+          name: "",
+          alcohol_percent: "",
+          region: "",
+          score: "",
+          notes: "",
+          date: "",
+        });
       }
     };
     postData();
   };
 
   return (
-    <div className="routecontainers" onSubmit={handleSubmit}>
-      <form className="wineform">
+    <div className="routecontainers">
+      <form className="wineform" onSubmit={handleSubmit}>
         <label>
           WINE:{" "}
           <input
+            value={formData.name}
             onChange={(e) => {
               setFormData({ ...formData, name: e.target.value });
             }}
@@ -44,6 +55,7 @@ export default function AddWine() {
         <label>
           ALCOHOL %:{" "}
           <input
+            value={formData.alcohol_percent}
             onChange={(e) => {
               setFormData({ ...formData, alcohol_percent: e.target.value });
             }}
@@ -54,6 +66,7 @@ export default function AddWine() {
         <label>
           REGION:{" "}
           <input
+            value={formData.region}
             onChange={(e) => {
               setFormData({ ...formData, region: e.target.value });
             }}
@@ -64,6 +77,7 @@ export default function AddWine() {
         <label>
           SCORE:{" "}
           <input
+            value={formData.score}
             onChange={(e) => {
               setFormData({ ...formData, score: e.target.value });
             }}
@@ -74,6 +88,7 @@ export default function AddWine() {
         <label>
           NOTES:{" "}
           <input
+            value={formData.notes}
             onChange={(e) => {
               setFormData({ ...formData, notes: e.target.value });
             }}
@@ -84,6 +99,7 @@ export default function AddWine() {
         <label>
           DATE:{" "}
           <input
+            value={formData.date}
             onChange={(e) => {
               setFormData({ ...formData, date: e.target.value });
             }}

@@ -91,8 +91,8 @@ body {
     border-radius: 15px;
     padding: 20px;
     display: flex;
+    flex-direction: column;
     align-content: center;
-    justify-content: center;
 
   }
   .selectwinecontainer{
@@ -111,7 +111,8 @@ body {
 
   .hey{
     display: flex;
-    height: 100vh;
+    height: 80vh;
+    padding: 10px
   }
 
 
