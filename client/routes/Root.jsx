@@ -6,6 +6,7 @@ export default function Root() {
     <>
       <NavBar className="NavBar" />
       <div>Hello World!</div>
+      
     </>
   );
 }
