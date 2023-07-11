@@ -1,54 +1,53 @@
 const path = require("path");
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: "development",
-  entry: "./src/main.jsx",
+  entry: "./client/index.js",
+  devServer: {
+    open: true,
+    proxy: {
+      "/api/**": "http://localhost:3000",
+      "/assets/**": {
+        target: "http://localhost:3000/",
+        secure: false,
+      },
+    },
+    static: {
+      directory: path.join(__dirname, "client"),
+      publicPath: "/",
+    },
+    historyApiFallback: true,
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
+    publicPath: "/",
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./client/index.html",
+    }),
+  ],
+
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.jsx?/, //either .js or .jsx
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
+          options: {
+            presets: [
+              ["@babel/preset-env", { targets: "defaults" }],
+              ["@babel/preset-react", { targets: "defaults", "runtime": "automatic"}],
+            ],
+          },
         },
       },
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
       },
-      {
-        test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: "url-loader",
-            options: {
-              limit: 8192,
-              fallback: "file-loader",
-            },
-          },
-        ],
-      },
     ],
   },
-  plugins: [
-    new HtmlWebPackPlugin({
-      template: "./index.html",
-      filename: "./index.html",
-    }),
-    new CopyPlugin({
-      patterns: [{ from: "./src/index.css" }],
-    }),
-  ],
-  devServer: {
-    static: {
-      directory: path.join(__dirname, "./dist"),
-    },
-  },
-  devtool: "eval-source-map",
 };

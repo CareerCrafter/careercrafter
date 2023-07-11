@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "../client/Components/NavBar.jsx";
+import NavBar from "../components/NavBar.jsx";
 
 export default function Root() {
   return (

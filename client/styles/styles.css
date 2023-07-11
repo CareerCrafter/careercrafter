@@ -18,7 +18,7 @@ body {
 
 .Navbar {
   color: white;
-  background-color: #00A69B;
+  background-color: black;
   display: flex;
   align-items: center;
   justify-content:space-evenly;
@@ -34,4 +34,11 @@ body {
   height: 35px;
   font-size: 20px;
   color: white;
+}
+
+#detail {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
