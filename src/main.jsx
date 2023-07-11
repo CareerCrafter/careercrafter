@@ -1,18 +1,32 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  // createBrowserRouter,
+  // RouterProvider,
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 import Root from "./routes/Root.jsx";
+import WineListPage from "./client/Containers/WinelistPage.jsx";
 import "./index.css";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-  },
-]);
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<Root />} />
+        <Route exact path="/winelist" element={<WineListPage />} />
+      </Routes>
+    </Router>
+  );
+};
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <App />
   </React.StrictMode>
 );
+
+
