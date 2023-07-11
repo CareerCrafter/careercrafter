@@ -2,13 +2,24 @@ const db = require('../models/wineModels');
 const wineController = {};
 
 wineController.getWines = async (req, res, next) => {
+    console.log('req body for getWines',req.body);
     try{
-        const result = await db.query(
-            `SELECT *
-            FROM wines`
-            );
-            res.locals.allWines = result.rows;
+        if(!req.body){
+            const result = await db.query(
+                `SELECT *
+                FROM wines`
+                );
+                res.locals.allWines = result.rows;
             next();
+        }else{
+            const result = await db.query(
+                `SELECT *
+                FROM wines
+                ORDER BY  ${req.body.sort} ${req.body.order}`
+                );
+                res.locals.allWines = result.rows;
+            next();
+        }
     }catch (error){
         next({
             log: 'Error in wineController.getWines',
@@ -34,5 +45,9 @@ wineController.addWine = (req, res, next) => {
         next(err);
     })
 };
+
+wineController.updateWine = (req, res, next) => {
+    
+}
 
 module.exports = wineController;
