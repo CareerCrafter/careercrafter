@@ -9,8 +9,6 @@ export default function Root() {
   return (
     <>
       <NavBar className="NavBar" />
-    
-     
       <Homepage>
       </Homepage>
       </>

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AuthConsumer from "../AuthProvider.jsx";
+import { PiWineLight } from "react-icons/pi"
 import { CgLogOut } from "react-icons/cg"
-
 export default function NavBar() {
   
   const { logout } = AuthConsumer();
@@ -21,6 +21,11 @@ export default function NavBar() {
       <Link className="navbar-menu" to="/addwine">
         ADD WINE
       </Link>
+
+      <Link className="navbar-menu" to="/explore">
+        <PiWineLight/>
+      </Link>
+      
       <Link className="navbar-menu">
         <button
           onClick={handleSignout}

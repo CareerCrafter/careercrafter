@@ -122,3 +122,27 @@ body {
   align-items: flex-end;
   }
   
+  .carouselDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Open Sans', sans-serif;  
+  } 
+  
+  .cardContainer {
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+    width: 50rem;
+    height: 50rem;
+  }
+  
+  button.slick-prev::before, 
+  button.slick-next::before,
+  slick-prev::before,
+  slick-next::before {
+    color: black;
+    
+  }
+  
