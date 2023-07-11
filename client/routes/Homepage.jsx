@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import NavBar from "../Components/NavBar.jsx";
+import NavBar from "../components/NavBar.jsx";
 import winebar from "../images/winebar.png";
-import AgeModal from "../Components/AgeModal.jsx";
+import AgeModal from "../components/AgeModal.jsx";
 
 export default function Homepage() {
   const [open, setOpen] = useState(true);
