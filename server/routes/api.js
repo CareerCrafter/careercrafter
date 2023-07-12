@@ -9,6 +9,6 @@ const router = express.Router();
 router.use('/winelist', wineRouter);
 router.use('/login', loginRouter);
 router.use('/signup', signupRouter);
-
+router.use('/userwinelist', wineRouter);
 
 module.exports = router;

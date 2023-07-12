@@ -1,41 +1,41 @@
 const db = require("../models/wineModels");
 const wineController = {};
 
-wineController.getWines = async (req, res, next) => {
-  console.log("req body for getWines", req.body);
+// wineController.getWines = async (req, res, next) => {
+//   console.log("req body for getWines", req.body);
   
-  try {
-    if (!req.body.sort) {
-      const result = await db.query(
-        `SELECT *
-                FROM wines`
-      );
-      res.locals.allWines = result.rows;
+//   try {
+//     if (!req.body.sort) {
+//       const result = await db.query(
+//         `SELECT *
+//                 FROM wines`
+//       );
+//       res.locals.allWines = result.rows;
       
-      next();
-    } else {
-      console.log("else");
+//       next();
+//     } else {
+//       console.log("else");
 
-      const result = await db.query(
-        `SELECT *
-                FROM wines
-                ORDER BY  ${req.body.sort} ${req.body.order}`
-      );
-      res.locals.allWines = result.rows;
-      console.log("res.locals.allWines");
+//       const result = await db.query(
+//         `SELECT *
+//                 FROM wines
+//                 ORDER BY  ${req.body.sort} ${req.body.order}`
+//       );
+//       res.locals.allWines = result.rows;
+//       console.log("res.locals.allWines");
 
-      next();
-    }
-  } catch (error) {
-    next({
-      log: "Error in wineController.getWines",
-      status: 500,
-      message: {
-        err: `Error in wineController.getWines: ${error}`,
-      },
-    });
-  }
-};
+//       next();
+//     }
+//   } catch (error) {
+//     next({
+//       log: "Error in wineController.getWines",
+//       status: 500,
+//       message: {
+//         err: `Error in wineController.getWines: ${error}`,
+//       },
+//     });
+//   }
+// };
 wineController.addWine = (req, res, next) => {
   console.log("ADDING wine controler hit");
   const { name, alcohol_percent, region, score, notes, date, user_id } = req.body;
@@ -119,4 +119,30 @@ wineController.deleteWine = async (req, res, next) => {
   next();
 };
 
+wineController.getWinesForUser = async (req, res, next) => {
+    console.log("req body for getWines", req.body);
+    
+    const sql = 
+    `
+    SELECT *
+       FROM public.wines
+       WHERE user_id = $1;`;
+    
+    try {
+      
+        const result = await db.query(sql, [req.body.user_id]);
+        res.locals.wine = result.rows;
+        
+        next();
+      
+    } catch (error) {
+      next({
+        log: "Error in wineController.getWinesForUser",
+        status: 500,
+        message: {
+          err: `Error in wineController.getWinesForUser: ${error}`,
+        },
+      });
+    }
+  };
 module.exports = wineController;

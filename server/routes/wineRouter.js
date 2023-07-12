@@ -4,15 +4,20 @@ const wineController = require('../controllers/wineController')
 
 const router = express.Router();
 
+router.post('/user', wineController.getWinesForUser, (req, res) => {
+    console.log('read wines list for user');
+    res.status(200).json(res.locals.wine);
+})
+
 router.post('/', wineController.addWine, (req, res) => {
     console.log('post wintelist');
     res.status(201).json(res.locals.newWine)
 }
 );
 
-router.get('/', wineController.getWines, (req, res) => {
-    res.status(200).json(res.locals.allWines)
-})
+// router.get('/', wineController.getWines, (req, res) => {
+//     res.status(200).json(res.locals.allWines)
+// })
 
 router.put('/', wineController.updateWine, (req,res) => {
     res.status(201).json(res.locals.updatedWines)

@@ -28,12 +28,12 @@ const Wine = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/winelist`, {
-          method: "GET",
+        const response = await fetch(`/api/winelist/user`, {
+          method: "POST",
           headers: { 
             "Content-Type": "application/json",
-            "user_id": "63957a70-4251-4dbd-9b3b-2909adf68b2f"
-          }
+          },
+          body: JSON.stringify({ "user_id":"63957a70-4251-4dbd-9b3b-2909adf68b2f"})
         });
         const wineData = await response.json();
         setWineArray(wineData);

@@ -6,12 +6,12 @@ export default function AddWine() {
   const { user } = AuthConsumer();
   
   const [formData, setFormData] = useState({
-    name: "2",
-    alcohol_percent: "2",
-    region: "test",
-    score: 10,
-    notes: "test",
-    date: "test",
+    name: "",
+    alcohol_percent: "",
+    region: "",
+    score: "",
+    notes: "",
+    date: "",
     user_id: ""
   });
 
@@ -20,7 +20,7 @@ export default function AddWine() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const postData = async () => {
-      console.log("postin");
+      
       const bodyArgs = { ...formData}
       bodyArgs["user_id"] = user;
 
