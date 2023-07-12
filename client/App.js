@@ -5,7 +5,7 @@ import Root from "./routes/Root.jsx";
 import Wine from "./routes/Wine.jsx";
 import Explore from "./routes/Explore.jsx";
 import AddWine from "./routes/AddWine.jsx";
-
+import DisplayWine from "./components/SelectWine.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,18 +25,9 @@ const router = createBrowserRouter([
         element: <Explore />,
       },
     ],
-  }
+  },
 ]);
 
 export default function App() {
-  
-  
-    return (
-      
-      <RouterProvider 
-        router={router}>
-      </RouterProvider>
-    
-    );
-  }
-
+  return <RouterProvider router={router}></RouterProvider>;
+}

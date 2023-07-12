@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from "react";
+import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import DisplayWine from "../components/SelectWine.jsx";
 
 const Wine = () => {
-  const [displayWineData, setDisplayWineData] = useState();
+  // 12345
+  const navigate = useNavigate();
+
+  const location = useLocation();
+  let params = new URLSearchParams(location.search);
+  console.log({ location });
+
+  console.log({ params });
+  console.log({ params: params.get("id") });
+  const queryId = params.get("id");
+
+  console.log({ queryId });
+  const [wineId, setWineId] = useState();
+  console.log("wineId", wineId);
   const [wineArray, setWineArray] = useState([]);
 
-  let wineListJsx;
+  useEffect(() => {
+    setWineId(Number(queryId));
+  }, [queryId]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,18 +40,32 @@ const Wine = () => {
     fetchData();
   }, []);
 
-  if (wineArray && wineArray.length > 0) {
-    wineListJsx = wineArray.map((wine, i) => {
-      return (
-        <ol
-          className={`vino`}
-          key={`vino${i}`}
-          onClick={() => setDisplayWineData(wine)}
-        >
-          {wine.name}
-        </ol>
-      );
+  //create a variable called wine
+  //look for wine_id within the wineData
+  //once found pass into wine data
+  const wine = wineArray?.find((wine) => wine.wine_id === wineId);
+  console.log("wine object", wine);
+
+  const navigateToWine = (id) => {
+    navigate({
+      search: `?id=${id}`,
     });
+  };
+
+  const wineListJsx = wineArray.map((wine, i) => {
+    return (
+      <ol
+        className={`vino`}
+        key={`vino${i}`}
+        onClick={() => navigateToWine(wine.wine_id)}
+      >
+        {wine.name}
+      </ol>
+    );
+  });
+
+  if (!wineArray.length > 0) {
+    return null;
   }
 
   return (
@@ -44,7 +74,7 @@ const Wine = () => {
         <ul style={{ fontSize: "20px" }}>WINE VAULT</ul>
         <ul>{wineListJsx}</ul>
       </div>
-      {displayWineData && <DisplayWine wine={displayWineData} />}
+      {wine && <DisplayWine wine={wine} />}
     </div>
   );
 };
