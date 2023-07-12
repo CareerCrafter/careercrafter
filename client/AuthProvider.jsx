@@ -11,7 +11,7 @@ const supabase = createClient('https://yehndoowqjqdwarwhgjl.supabase.co', 'eyJhb
 function useAuth() {
   
   const [authed, setAuthed] = React.useState(false);
-  const [user, setUser] = React.useState('');
+  const [user, setUser] = React.useState({});
   const [session, setSession] = React.useState(null);
 
   useEffect(() => {
@@ -21,6 +21,7 @@ function useAuth() {
     })
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)    
+      setUser(session.user.id);
     })
 
     return () => subscription.unsubscribe()
@@ -37,8 +38,8 @@ function useAuth() {
           email: 'example@email.com',
           password: 'example-password',
         });
-    
-        if (error) {
+          
+          if (error) {
           console.error('Login error:', error);
         }
       } catch (error) {

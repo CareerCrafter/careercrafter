@@ -3,6 +3,7 @@ const wineController = {};
 
 wineController.getWines = async (req, res, next) => {
   console.log("req body for getWines", req.body);
+  console.log("user id from params: ", req.headers.user_id)
   try {
     if (!req.body.sort) {
       const result = await db.query(
@@ -10,6 +11,7 @@ wineController.getWines = async (req, res, next) => {
                 FROM wines`
       );
       res.locals.allWines = result.rows;
+      
       next();
     } else {
       console.log("else");
