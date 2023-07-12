@@ -3,6 +3,7 @@ import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import { autocompleteClasses } from "@mui/material";
 
 export default function MatchCard(props) {
 
@@ -25,7 +26,8 @@ export default function MatchCard(props) {
   <div>
       <Card 
         sx={{ 
-          maxWidth: 345,
+          maxWidth: 445,
+          height: 365,
           display:"flex",
           flexDirection:"column",
           margin:'10px',
@@ -43,7 +45,7 @@ export default function MatchCard(props) {
         />
         <CardMedia
           component="img"
-          sx={{ height: 140, widht: 'auto'}}
+          sx={{ height: 120, width: 'auto'}}
           image={image}
           alt="wine image"
         />
