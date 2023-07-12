@@ -5,7 +5,7 @@ import { PiWineLight } from "react-icons/pi"
 import { CgLogOut } from "react-icons/cg"
 export default function NavBar() {
   
-  const { logout } = AuthConsumer();
+  const { logout, session } = AuthConsumer();
 
   async function handleSignout(){
     await logout();
@@ -26,6 +26,7 @@ export default function NavBar() {
         <PiWineLight/>
       </Link>
       
+      {session &&
       <Link className="navbar-menu">
         <button
           onClick={handleSignout}
@@ -34,6 +35,7 @@ export default function NavBar() {
 
         </button>
       </Link>
+}
     </div>
     
     </>

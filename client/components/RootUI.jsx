@@ -19,6 +19,7 @@ export default function Homepage() {
           backgroundImage: `url(${winebar})`,
           width: "100%",
           height: "100%",
+          overflowY: "scroll"
         }}
       >
         <h3 className="Title">WineCrafters</h3>
@@ -33,7 +34,8 @@ export default function Homepage() {
             backgroundColor: '#370B1B',
             border: '15px double #8B6E51',
             padding: '25px',
-            margin: '50px'
+            margin: '50px',
+            color:'white'
 
           }}
          >
@@ -41,11 +43,11 @@ export default function Homepage() {
             supabaseClient={supabase}
             appearance={{
             theme: ThemeSupa,
-            
+            color: 'white',
             variables: {
               default: {
                 colors: {
-                  brand: 'black',
+                  brand: '#8B6E51',
                   brandAccent: '#8B6E51',
                   },
                 },
@@ -57,11 +59,11 @@ export default function Homepage() {
         </>
       }
         <Outlet />
-        {open && (
+        {/* {open && (
           <div className="modal">
             <AgeModal open={open} setOpen={setOpen}></AgeModal>
           </div>
-        )}
+        )} */}
       </div>
     </>
   );
