@@ -10,8 +10,8 @@ export default function Carousel(props) {
   
   const settings = {
     infinite: true,
-    slidesToShow: 5,
-    slidesToScroll: 3,
+    slidesToShow: 7,
+    slidesToScroll: 5,
     autoplay: true,
     speed: 2000,
     autoPlaySpeed: 2000,
