@@ -40,9 +40,7 @@ wineController.queryWine = async (req, res, next) => {
 
     try {
 
-        let { wineType, displayCount, average, review, location } = req.body;
-
-        // avgA, avgD, 
+        let { wineType, displayCount, average, review, location, avgSortA, avgSortD, locSortA, locSortD } = req.body;
 
         const queryURL = `https://api.sampleapis.com/wines/${wineType}`
     
@@ -50,23 +48,77 @@ wineController.queryWine = async (req, res, next) => {
         let wineList = await response.json();
    
         displayCount = Number(displayCount)
+        location = location.toUpperCase();
 
-
-
+        // checks if average value param has been passed in
+        // if so, filter for all rating scores equal to or above input score
         if(average){
             wineList = wineList.filter( wineObj => wineObj.rating.average > average); 
         }
-        // if(review){
-        //     wineList = wineList.filter( wineObj => Number(wineObj.reviews.substring(0,2)) > Number(average));
-        //     onsole.log('review')
-        // }
 
+        
+        // checks if review value param has been passed in
+        // if so, filter for all rating scores equal to or above input score
+        if(review){
+
+            wineList = wineList.map( wineObj => {
+                const rArr = wineObj.rating.reviews.split(' ');
+                if(rArr[0] > review){
+                    return wineObj
+                }
+                return
+            })
+        }
+
+        // Filter by location
+        if(location){
+            wineList = wineList.filter( wineObj => wineObj.location.split('\n')[0].toUpperCase() == location);
+        }
+
+        // check if accending sort boolean doesnt not exist or if decending sort is true, if so sort by decending (auto decending sort)
+        // Descending average sort
+        if(!avgSortA || avgSortD) {
+            function bubbleSortByRating(array) {
+                const n = array.length;
+                for (let i = 0; i < n - 1; i++) {
+                    for (let j = 0; j < n - i - 1; j++) {
+                        if (parseFloat(array[j].rating.average) < parseFloat(array[j + 1].rating.average)) {
+                            [array[j], array[j + 1]] = [array[j + 1], array[j]];
+                        }
+                    }
+                }
+            }
+            bubbleSortByRating(wineList)
+        }
+
+        // Accending avarage sort
+        if(avgSortA){
+            function bubbleSortByRating(array) {
+                const n = array.length;
+                for (let i = 0; i < n - 1; i++) {
+                    for (let j = 0; j < n - i - 1; j++) {
+                        if (parseFloat(array[j].rating.average) > parseFloat(array[j + 1].rating.average)) {
+                            [array[j], array[j + 1]] = [array[j + 1], array[j]];
+                        }
+                    }
+                }
+            }
+            bubbleSortByRating(wineList)
+        }
+
+        
+        // remove all undefined objects in array
+        wineList = wineList.filter( wineObj => wineObj !== undefined)
+
+
+        // if display count has not been passed through default to returning 20
         if(displayCount === 0){
-            console.log('hit')
-            res.locals.wineSearch = wineList;
-            console.log(wineList)
+            
+            res.locals.wineSearch = wineList.slice(0, 20);
             return next()
         }
+
+        // else, return specififed user input for displayCount
         else{
             res.locals.wineSearch = wineList.slice(0,displayCount)
             console.log(res.locals.wineSearch)
