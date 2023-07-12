@@ -1,27 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
+import AuthConsumer from "../AuthProvider.jsx";
+
 export default function AddWine() {
+  const { user } = AuthConsumer();
+  
   const [formData, setFormData] = useState({
-    name: "",
-    alcohol_percent: "",
-    region: "",
-    score: "",
-    notes: "",
-    date: "",
+    name: "2",
+    alcohol_percent: "2",
+    region: "test",
+    score: 10,
+    notes: "test",
+    date: "test",
+    user_id: ""
   });
+
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const postData = async () => {
       console.log("postin");
+      const bodyArgs = { ...formData}
+      bodyArgs["user_id"] = user;
+
+      console.log('body args', JSON.stringify(bodyArgs))
       try {
-        console.log("postin2");
+        
         const response = await fetch("/api/winelist", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(bodyArgs)
         });
-
-        console.log("idk");
+        const s = await response.json();
+        console.log(s);
       } catch (err) {
         console.log("error");
       } finally {
@@ -32,6 +44,7 @@ export default function AddWine() {
           score: "",
           notes: "",
           date: "",
+          user_id: "",
         });
       }
     };
