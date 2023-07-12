@@ -1,10 +1,11 @@
 import React from "react";
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/Root.jsx";
-import Login from "./routes/Login.jsx";
 import Wine from "./routes/Wine.jsx";
-import Vineyard from "./routes/Vineyard.jsx";
+import Explore, {loader as exploreLoader, action as exploreAction} from "./routes/Explore.jsx";
 import AddWine from "./routes/AddWine.jsx";
+import DisplayWine from "./components/SelectWine.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,15 +20,13 @@ const router = createBrowserRouter([
         path: "/addwine",
         element: <AddWine />,
       },
+      {
+        path: "/explore",
+        element: <Explore />,
+        loader: exploreLoader,
+        action: exploreAction
+      },
     ],
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/vineyard",
-    element: <Vineyard />,
   },
 ]);
 

@@ -2,6 +2,7 @@
 import React from "react";
 
 export default function AgeModal({ open, setOpen }) {
+  
   const closeModal = () => {
     setOpen(false);
   };
