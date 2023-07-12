@@ -41,7 +41,7 @@ wineController.queryWine = async (req, res, next) => {
     try {
 
         // Destructure data
-        let { wineType, displayCount, average, review, location, avgSortA, avgSortD, locSortA, locSortD } = req.body;
+        let { wineType, displayCount, average, review, location, avgSortA, avgSortD } = req.body;
 
         // URL used to query for list of wines
         const queryURL = `https://api.sampleapis.com/wines/${wineType}`;
@@ -60,21 +60,15 @@ wineController.queryWine = async (req, res, next) => {
         // checks if average value param has been passed in
         // if so, filter for all rating scores equal to or above input score
         if(average){
-            wineList = wineList.filter( wineObj => wineObj.rating.average > average); 
+            wineList = wineList.filter( wineObj => wineObj.rating.average >= average); 
         }
 
         
         // checks if review value param has been passed in
         // if so, filter for all rating scores equal to or above input score
         if(review){
+            wineList = wineList.filter( wineObj => parseFloat(wineObj.rating.reviews) >= review)
 
-            wineList = wineList.map( wineObj => {
-                const rArr = wineObj.rating.reviews.split(' ');
-                if(rArr[0] > review){
-                    return wineObj
-                }
-                return
-            })
         }
 
         // Filter by location
@@ -83,7 +77,7 @@ wineController.queryWine = async (req, res, next) => {
             wineList = wineList.filter( wineObj => wineObj.location.split('\n')[0].toUpperCase() == location);
         }
         // if no location is passed, default to displaying france
-        else {
+        if(!location) {
             wineList = wineList.filter( wineObj => wineObj.location.split('\n')[0].toUpperCase() == "FRANCE");
         }
 
@@ -125,16 +119,15 @@ wineController.queryWine = async (req, res, next) => {
 
 
         // if display count has not been passed through default to returning 20
-        if(displayCount === 0){
-            
+        if(displayCount === 0){  
             res.locals.wineSearch = wineList.slice(0, 50);
+
             return next()
         }
 
         // else, return specififed user input for displayCount
         else{
             res.locals.wineSearch = wineList.slice(0,displayCount)
-            console.log(res.locals.wineSearch)
             
              return next()
         }
