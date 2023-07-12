@@ -49,7 +49,7 @@ const Wine = () => {
   const navigateToWine = (id) => {
     navigate({
       search: `?id=${id}`,
-    });
+    });``
   };
 
   const wineListJsx = wineArray.map((wine, i) => {
