@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import DisplayWine from "../components/SelectWine.jsx";
+import AuthConsumer from "../AuthProvider.jsx";
 
 const Wine = () => {
   // 12345
   const navigate = useNavigate();
-
+  const { session, supabase, user } = AuthConsumer(); 
+  console.log(user);
   const location = useLocation();
   let params = new URLSearchParams(location.search);
   console.log({ location });
@@ -28,7 +30,10 @@ const Wine = () => {
       try {
         const response = await fetch(`/api/winelist`, {
           method: "GET",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json",
+            "user_id": "test123"
+          }
         });
         const wineData = await response.json();
         setWineArray(wineData);

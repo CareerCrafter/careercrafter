@@ -71,7 +71,7 @@ body {
   .routecontainers {
     border-width: 1px;
     background-color: rgba(157, 106, 39, 0.5);
-
+    color: white;
     width: 100%;
     height: 60%;
     position: absolute;
@@ -91,6 +91,7 @@ body {
     border-radius: 15px;
     padding: 20px;
     display: flex;
+    color: white;
     flex-direction: column;
     align-content: center;
 
@@ -100,7 +101,7 @@ body {
     background-color: rgba(157, 106, 39, 0.5);
     margin-left: 2%;
     border-radius: 15px;
-
+    color: white;
     /* width: 20%;
     border-radius: 15px;
     padding: 20px;
