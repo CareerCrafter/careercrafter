@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import Carousel from '../components/Carousel.jsx'
-import { Form, useLoaderData, useFetcher } from "react-router-dom"
+import { useLoaderData, useFetcher } from "react-router-dom"
 import axios from "axios";
 
 export async function loader({ params }) {  
@@ -56,15 +56,15 @@ const Explore = () => {
   const fetcher = useFetcher();
 
   const handleSubmit = (event) => {
-    
+    event.preventDefault();
     const formData = {
       region,
       results,
       wineType,
     };
     console.log('submit formdata', formData);
-    event.target.reset();
-    fetcher.submit()
+    event.target.getElementsByTagName('input')['q'].value=('')
+
   }
 
   const handleLocationChange = (event) => {
