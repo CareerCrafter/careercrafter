@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import AuthConsumer from "../AuthProvider.jsx";
 import { PiWineLight } from "react-icons/pi"
-import { CgLogOut } from "react-icons/cg"
+import { BiLogOut } from "react-icons/bi"
 export default function NavBar() {
   
   const { logout, session } = AuthConsumer();
@@ -23,7 +23,13 @@ export default function NavBar() {
       </Link>
 
       <Link className="navbar-menu" to="/explore">
-        <PiWineLight/>
+        <PiWineLight
+           style={{
+            width:'1.75rem',
+            height:'1.75rem',
+            fontWeight:'700'
+          }}
+        />
       </Link>
       
       {session &&
@@ -31,7 +37,13 @@ export default function NavBar() {
         <button
           onClick={handleSignout}
         >
-          <CgLogOut />
+          <BiLogOut
+           style={{
+            width:'1.05rem',
+            height:'1.05rem',
+            fontWeight:'500'
+           }}
+           />
 
         </button>
       </Link>

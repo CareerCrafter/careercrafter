@@ -37,7 +37,7 @@ wineController.addWine = (req, res, next) => {
 
 wineController.queryWine = async (req, res, next) => {
 
-
+    console.log(req.body);
     try {
 
         let { wineType, displayCount, average, review, location } = req.body;
@@ -47,6 +47,7 @@ wineController.queryWine = async (req, res, next) => {
         const queryURL = `https://api.sampleapis.com/wines/${wineType}`
     
         const response = await fetch(queryURL);
+        
         let wineList = await response.json();
    
         displayCount = Number(displayCount)
