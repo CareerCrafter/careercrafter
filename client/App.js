@@ -5,7 +5,7 @@ import Root from "./routes/Root.jsx";
 import Wine from "./routes/Wine.jsx";
 import Explore, {loader as exploreLoader, action as exploreAction} from "./routes/Explore.jsx";
 import AddWine from "./routes/AddWine.jsx";
-import DisplayWine from "./components/SelectWine.jsx";import ErrorPage from "./routes/ErrorPage.jsx";
+import DisplayWine from "./components/SelectWine.jsx";
 
 const router = createBrowserRouter([
   {
@@ -23,9 +23,11 @@ const router = createBrowserRouter([
       {
         path: "/explore",
         element: <Explore />,
+        loader: exploreLoader,
+        action: exploreAction
       },
     ],
-  }
+  },
 ]);
 
 export default function App() {
