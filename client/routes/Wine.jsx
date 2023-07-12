@@ -32,7 +32,7 @@ const Wine = () => {
           method: "GET",
           headers: { 
             "Content-Type": "application/json",
-            "user_id": "test123"
+            "user_id": "63957a70-4251-4dbd-9b3b-2909adf68b2f"
           }
         });
         const wineData = await response.json();

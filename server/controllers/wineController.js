@@ -3,7 +3,7 @@ const wineController = {};
 
 wineController.getWines = async (req, res, next) => {
   console.log("req body for getWines", req.body);
-  console.log("user id from params: ", req.headers.user_id);
+  
   try {
     if (!req.body.sort) {
       const result = await db.query(
@@ -11,7 +11,7 @@ wineController.getWines = async (req, res, next) => {
                 FROM wines`
       );
       res.locals.allWines = result.rows;
-
+      
       next();
     } else {
       console.log("else");
@@ -38,8 +38,7 @@ wineController.getWines = async (req, res, next) => {
 };
 wineController.addWine = (req, res, next) => {
   console.log("ADDING wine controler hit");
-  const { name, alcohol_percent, region, score, notes, date, user_id } =
-    req.body;
+  const { name, alcohol_percent, region, score, notes, date, user_id } = req.body;
   const queryObj = {
     text: "INSERT INTO wines(name, alcohol_percent, region, score, notes, date, user_id) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
     values: [name, alcohol_percent, region, score, notes, date, user_id],
