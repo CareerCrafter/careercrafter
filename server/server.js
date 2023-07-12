@@ -20,68 +20,6 @@ app.use(express.static(path.resolve(__dirname, "../dist")));
 app.use(express.static("client"));
 
 
-
-// This is the test route for wine querying
-app.get('/api/test', wineController.queryWine, (req, res) => {
-  res.status(200).json(res.locals.wineSearch)
-})
-
-
-app.get('/api/searchtest',
-
-(req, res) => {
-  let data = [
-    {
-        "winery": "Domaine de La Romanée-Conti",
-        "wine": "Montrachet Grand Cru 2010",
-        "rating": {
-            "average": "4.9",
-            "reviews": "37 ratings"
-        },
-        "location": "South Africa",
-        "image":"https://www.dryfarmwines.com/cdn/shop/files/love-is-more-than-a-feeling_840x.png?v=1662594158",
-        "id": 1
-    },
-    {
-        "winery": "Domaine de La Romanée-Conti",
-        "wine": "Casalin Barbera d’Alba 2020",
-        "rating": {
-            "average": "4.9",
-            "reviews": "33 ratings"
-        },
-        "location": "France\n·\nMontrachet Grand Cru",
-        "image": "https://www.dryfarmwines.com/cdn/shop/files/casalin-featured-bottle_840x.png?v=1662593693",
-        "id": 2
-    },
-    {
-      "winery": "Domaine de La Romanée-Conti",
-      "wine": "Montrachet Grand Cru 2014",
-      "rating": {
-          "average": "4.9",
-          "reviews": "33 ratings"
-      },
-      "location": "France\n·\nMontrachet Grand Cru",
-      "image": "https://www.dryfarmwines.com/cdn/shop/files/Passavant-featured_840x.png?v=1662594468",
-      "id": 2
-  },
-  {
-    "winery": "Domaine de La Romanée-Conti",
-    "wine": "Domaine du Penlois Crémant de Bourgogne",
-    "rating": {
-        "average": "4.9",
-        "reviews": "33 ratings"
-    },
-    "location": "France",
-    "image": "https://www.dryfarmwines.com/cdn/shop/files/penlois-bubbles-feature_840x.png?v=1662594839",
-    "id": 2
-},
-  
-    
-]
-    res.status(200).json(data);
-  }
-)
-
 //define route handlers
 app.use('/api', apiRouter);
 
