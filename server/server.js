@@ -22,7 +22,9 @@ app.use(express.static("public", { extensions: ["css"] }));
 app.use(express.static(path.resolve(__dirname, "../dist")));
 app.use(express.static("client"));
 
-
+app.get('/api/test', wineController.queryWine, (req, res) => {
+  res.status(200).json(res.locals.wineSearch)
+})
 
 
 //define route handlers
