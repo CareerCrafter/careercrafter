@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
+import AuthConsumer from "../AuthProvider.jsx";
+
 export default function AddWine() {
+  const { user } = AuthConsumer();
+
   const [formData, setFormData] = useState({
     name: "",
     alcohol_percent: "",
@@ -8,6 +12,7 @@ export default function AddWine() {
     score: "",
     notes: "",
     date: "",
+    user_id: user,
   });
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,10 +23,8 @@ export default function AddWine() {
         const response = await fetch("/api/winelist", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+          body: JSON.stringify([...formData]),
         });
-
-        console.log("idk");
       } catch (err) {
         console.log("error");
       } finally {
@@ -32,6 +35,7 @@ export default function AddWine() {
           score: "",
           notes: "",
           date: "",
+          user_id: "",
         });
       }
     };
