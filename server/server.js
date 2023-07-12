@@ -1,15 +1,12 @@
 
 require("dotenv").config();
 // ----------------IMPORTS---------------------//
-// import express from 'express';
-// import path from 'path';
 const path = require("path");
 const express = require("express");
 const apiRouter = require('./routes/api');
 const cookieParser = require("cookie-parser");
 const wineController = require("./controllers/wineController");
-const signupRouter = require('./routes/signupRouter')
-//import type { Request, Response, NextFunction } from 'express'; // typescript types
+
 //----------------SET UP EXPRESS APP----------//
 const port = 3000;
 const app = express();
@@ -22,14 +19,15 @@ app.use(express.static("public", { extensions: ["css"] }));
 app.use(express.static(path.resolve(__dirname, "../dist")));
 app.use(express.static("client"));
 
+
+
+// This is the test route for wine querying
 app.get('/api/test', wineController.queryWine, (req, res) => {
   res.status(200).json(res.locals.wineSearch)
 })
 
 
 //define route handlers
- 
-
 app.use('/api', apiRouter);
 
 

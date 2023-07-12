@@ -40,15 +40,22 @@ wineController.queryWine = async (req, res, next) => {
 
     try {
 
+        // Destructure data
         let { wineType, displayCount, average, review, location, avgSortA, avgSortD, locSortA, locSortD } = req.body;
 
-        const queryURL = `https://api.sampleapis.com/wines/${wineType}`
-    
+        // URL used to query for list of wines
+        const queryURL = `https://api.sampleapis.com/wines/${wineType}`;
+
+
+        // Fetching list and processing
         const response = await fetch(queryURL);
         let wineList = await response.json();
-   
+
+
+        // Convert passed in display count to number
+        // if null, it will default to zero and trigger the default return value of 50 wine items
         displayCount = Number(displayCount)
-        location = location.toUpperCase();
+
 
         // checks if average value param has been passed in
         // if so, filter for all rating scores equal to or above input score
@@ -72,8 +79,14 @@ wineController.queryWine = async (req, res, next) => {
 
         // Filter by location
         if(location){
+            location = location.toUpperCase();
             wineList = wineList.filter( wineObj => wineObj.location.split('\n')[0].toUpperCase() == location);
         }
+        // if no location is passed, default to displaying france
+        else {
+            wineList = wineList.filter( wineObj => wineObj.location.split('\n')[0].toUpperCase() == "FRANCE");
+        }
+
 
         // check if accending sort boolean doesnt not exist or if decending sort is true, if so sort by decending (auto decending sort)
         // Descending average sort
@@ -114,7 +127,7 @@ wineController.queryWine = async (req, res, next) => {
         // if display count has not been passed through default to returning 20
         if(displayCount === 0){
             
-            res.locals.wineSearch = wineList.slice(0, 20);
+            res.locals.wineSearch = wineList.slice(0, 50);
             return next()
         }
 
