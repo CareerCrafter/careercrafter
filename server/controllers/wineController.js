@@ -55,43 +55,108 @@ wineController.addWine = (req, res, next) => {
 };
 
 wineController.queryWine = async (req, res, next) => {
-  console.log(req.body);
+
+
   try {
-    let { wineType, displayCount, average, review, location } = req.body;
 
-    // avgA, avgD,
+      // Destructure data
+      let { wineType, displayCount, average, review, location, avgSortA, avgSortD } = req.body;
 
-    const queryURL = `https://api.sampleapis.com/wines/${wineType}`;
+      // URL used to query for list of wines
+      const queryURL = `https://api.sampleapis.com/wines/${wineType}`;
 
-    const response = await fetch(queryURL);
 
-    let wineList = await response.json();
+      // Fetching list and processing
+      const response = await fetch(queryURL);
+      let wineList = await response.json();
 
-    displayCount = Number(displayCount);
 
-    if (average) {
-      wineList = wineList.filter((wineObj) => wineObj.rating.average > average);
-    }
-    // if(review){
-    //     wineList = wineList.filter( wineObj => Number(wineObj.reviews.substring(0,2)) > Number(average));
-    //     onsole.log('review')
-    // }
+      // Convert passed in display count to number
+      // if null, it will default to zero and trigger the default return value of 50 wine items
+      displayCount = Number(displayCount)
 
-    if (displayCount === 0) {
-      console.log("hit");
-      res.locals.wineSearch = wineList;
-      console.log(wineList);
-      return next();
-    } else {
-      res.locals.wineSearch = wineList.slice(0, displayCount);
-      console.log(res.locals.wineSearch);
 
-      return next();
-    }
+      // checks if average value param has been passed in
+      // if so, filter for all rating scores equal to or above input score
+      if(average){
+          wineList = wineList.filter( wineObj => wineObj.rating.average >= average); 
+      }
+
+      
+      // checks if review value param has been passed in
+      // if so, filter for all rating scores equal to or above input score
+      if(review){
+          wineList = wineList.filter( wineObj => parseFloat(wineObj.rating.reviews) >= review)
+
+      }
+
+      // Filter by location
+      if(location){
+          location = location.toUpperCase();
+          wineList = wineList.filter( wineObj => wineObj.location.split('\n')[0].toUpperCase() == location);
+      }
+      // if no location is passed, default to displaying france
+      if(!location) {
+          wineList = wineList.filter( wineObj => wineObj.location.split('\n')[0].toUpperCase() == "FRANCE");
+      }
+
+
+      // check if accending sort boolean doesnt not exist or if decending sort is true, if so sort by decending (auto decending sort)
+      // Descending average sort
+      if(!avgSortA || avgSortD) {
+          function bubbleSortByRating(array) {
+              const n = array.length;
+              for (let i = 0; i < n - 1; i++) {
+                  for (let j = 0; j < n - i - 1; j++) {
+                      if (parseFloat(array[j].rating.average) < parseFloat(array[j + 1].rating.average)) {
+                          [array[j], array[j + 1]] = [array[j + 1], array[j]];
+                      }
+                  }
+              }
+          }
+          bubbleSortByRating(wineList)
+      }
+
+      // Accending avarage sort
+      if(avgSortA){
+          function bubbleSortByRating(array) {
+              const n = array.length;
+              for (let i = 0; i < n - 1; i++) {
+                  for (let j = 0; j < n - i - 1; j++) {
+                      if (parseFloat(array[j].rating.average) > parseFloat(array[j + 1].rating.average)) {
+                          [array[j], array[j + 1]] = [array[j + 1], array[j]];
+                      }
+                  }
+              }
+          }
+          bubbleSortByRating(wineList)
+      }
+
+      
+      // remove all undefined objects in array
+      wineList = wineList.filter( wineObj => wineObj !== undefined)
+
+
+      // if display count has not been passed through default to returning 20
+      if(displayCount === 0){  
+          res.locals.wineSearch = wineList.slice(0, 50);
+
+          return next()
+      }
+
+      // else, return specififed user input for displayCount
+      else{
+          res.locals.wineSearch = wineList.slice(0,displayCount)
+          
+           return next()
+      }
+       
   } catch (error) {
-    console.log(error);
-    next(error);
+      console.log(error)
+      next(error)
   }
+
+
 };
 
 wineController.updateWine = async (req, res, next) => {
