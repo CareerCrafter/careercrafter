@@ -5,7 +5,8 @@ const wineController = require('../controllers/wineController')
 const router = express.Router();
 
 router.post('/user', wineController.getWinesForUser, (req, res) => {
-    console.log('read wines list for user');
+    console.log(res.locals.wine);
+
     res.status(200).json(res.locals.wine);
 })
 
