@@ -4,9 +4,14 @@ const wineController = require('../controllers/wineController')
 
 const router = express.Router();
 
+router.get('/:wineId', 
+    wineController.getWineById, 
+    (req, res) => {
+        console.log('/api/wine/:wineId route hit')
+        res.status(200).json(res.locals.wine);
+    }
+)
 router.post('/user', wineController.getWinesForUser, (req, res) => {
-    console.log(res.locals.wine);
-
     res.status(200).json(res.locals.wine);
 })
 

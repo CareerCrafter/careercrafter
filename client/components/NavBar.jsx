@@ -14,11 +14,11 @@ export default function NavBar() {
   return (
     <>
     <div className="NavBar">
-      <Link className="navbar-menu" to="/winelist">
-        WINE LIST
+      <Link className="navbar-menu" to="/">
+        MY NOTES
       </Link>
       
-      <Link className="navbar-menu" to="/addwine">
+      <Link className="navbar-menu" to="/wine/edit">
         ADD WINE
       </Link>
 

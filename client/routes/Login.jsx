@@ -34,35 +34,7 @@ export default function Login() {
 
   return (
     <div className="detail">
-      <Box sx={style}>
-        
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Only authenticated users can edit data.
-        </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>         
-        </Typography>
-        
-        <form onSubmit={handleSubmit}>
-          
-          <label>
-            Username: <input  name="username" type="text" />
-          </label>{" "}
-          
-          <br/>
-          
-          <label>
-            Password: <input  name="username" type="text" />
-          </label>{" "}
-          
-          <br/>
-          
-          <Button type="submit"> 
-            Login 
-          </Button>
-
-        </form>
       
-      </Box>
     </div>
   )
 }

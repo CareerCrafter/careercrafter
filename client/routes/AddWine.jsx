@@ -3,7 +3,7 @@ import { useState } from "react";
 import AuthConsumer from "../AuthProvider.jsx";
 
 export default function AddWine() {
-  const { user } = AuthConsumer();
+  //const { user } = AuthConsumer();
   
   const [formData, setFormData] = useState({
     name: "",
@@ -22,7 +22,7 @@ export default function AddWine() {
     const postData = async () => {
       
       const bodyArgs = { ...formData}
-      bodyArgs["user_id"] = user;
+      bodyArgs["user_id"] = '63957a70-4251-4dbd-9b3b-2909adf68b2f';
 
       console.log('body args', JSON.stringify(bodyArgs))
       try {

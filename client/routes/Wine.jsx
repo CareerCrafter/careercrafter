@@ -1,87 +1,93 @@
-import React, { useEffect, useState } from "react";
-import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
-import DisplayWine from "../components/SelectWine.jsx";
-import AuthConsumer from "../AuthProvider.jsx";
+import React from "react";
+import { Form, useLoaderData } from "react-router-dom";
 
-const Wine = () => {
-  // 12345
-  const navigate = useNavigate();
-  const { session, supabase, user } = AuthConsumer(); 
-  console.log(user);
-  const location = useLocation();
-  let params = new URLSearchParams(location.search);
-  console.log({ location });
-
-  console.log({ params });
-  console.log({ params: params.get("id") });
-  const queryId = params.get("id");
-
-  console.log({ queryId });
-  const [wineId, setWineId] = useState();
-  console.log("wineId", wineId);
-  const [wineArray, setWineArray] = useState([]);
-
-  useEffect(() => {
-    setWineId(Number(queryId));
-  }, [queryId]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`/api/winelist/user`, {
-          method: "POST",
-          headers: { 
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ "user_id":"63957a70-4251-4dbd-9b3b-2909adf68b2f"})
-        });
-        const wineData = await response.json();
-        setWineArray(wineData);
-        console.log("this is winedata", wineData);
-      } catch (err) {
-        console.log("error");
-      }
-    };
-    fetchData();
-  }, []);
-
-  //create a variable called wine
-  //look for wine_id within the wineData
-  //once found pass into wine data
-  const wine = wineArray?.find((wine) => wine.wine_id === wineId);
-  console.log("wine object", wine);
-
-  const navigateToWine = (id) => {
-    navigate({
-      search: `?id=${id}`,
-    });``
-  };
-
-  const wineListJsx = wineArray.map((wine, i) => {
-    return (
-      <ol
-        className={`vino`}
-        key={`vino${i}`}
-        onClick={() => navigateToWine(wine.wine_id)}
-      >
-        {wine.name}
-      </ol>
-    );
-  });
-
-  if (!wineArray.length > 0) {
-    return null;
+export async function loader({ params }) {
+  console.log('wine id from params', params.wineId)
+  try {
+    const response = await fetch(`/api/wine/${params.wineId}`, {
+      method: "GET",
+      headers: { 
+        "Content-Type": "application/json",
+      },
+    });
+    const wineData = await response.json();
+    return wineData[0];
+  } catch (err) {
+    return {};
   }
-
+}
+export default function Wine() {
+  const wine = useLoaderData();
+  console.log(`Loaded Wine data from loader, id: ${wine.wine_id} name:  ${wine.name}`)
   return (
-    <div className="hey">
-      <div className="routecontainersleft">
-        <ul style={{ fontSize: "20px" }}>WINE VAULT</ul>
-        <ul>{wineListJsx}</ul>
+    <div id="wine"
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#b59d82',
+      margin: '7.7rem 0rem 0rem 1rem',
+      opacity: '.8',
+      padding: '.5rem',
+      borderRadius: '12px',
+    }}
+    >
+      
+      <div
+        style={{
+      
+          justifyContent: 'center',
+          color: 'white',
+          height: '20rem',
+          opacity: '.98',
+          borderRadius: '5px',
+          padding: '.5rem'
+        }}
+      
+      >
+        <h1>{wine.name}</h1>
+        <h3>{wine.region}</h3>
+        <h4>Tasting notes: {wine.notes}</h4>
+        <h4>Alcohol percent: {wine.alcohol_percent}</h4>
+
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row'
+            }}
+          >
+          <Form action="edit">
+            <button type="submit">Edit</button>
+          </Form>
+          <Form
+            method="post"
+            action="destroy"
+            onSubmit={(event) => {
+              if (
+                !confirm(
+                  "Please confirm you want to delete this record."
+                )
+              ) {
+                event.preventDefault();
+              }
+            }}
+          >
+            <button type="submit">Delete</button>
+          </Form>
+          </div>
+        </div>
+
       </div>
-      {wine && <DisplayWine wine={wine} />}
     </div>
   );
-};
-
-export default Wine;
+}

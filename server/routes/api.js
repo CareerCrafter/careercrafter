@@ -5,7 +5,7 @@ const signupRouter = require('./signupRouter')
 const loginRouter = require('./loginRouter')
 const router = express.Router();
 
-
+router.use('/:wine_Id', wineRouter);
 router.use('/winelist', wineRouter);
 router.use('/login', loginRouter);
 router.use('/signup', signupRouter);

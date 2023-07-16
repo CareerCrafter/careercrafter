@@ -2,32 +2,18 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: "./client/index.js",
-  devServer: {
-    open: true,
-    proxy: {
-      "/api/**": "http://localhost:3000",
-      "/assets/**": {
-        target: "http://localhost:3000/",
-        secure: false,
-      },
-    },
-    static: {
-      directory: path.join(__dirname, "client"),
-      publicPath: "/",
-    },
-    historyApiFallback: true,
+  mode: 'development',
+  entry: {
+    index: "./client/index.js",
+    test: "./client/test.js",
   },
+  devtool: 'inline-source-map',
   output: {
-    path: path.resolve(__dirname, "dist/"),
-    filename: "bundle.js",
-    publicPath: "/",
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "./client/index.html",
-    }),
-  ],
+    filename: "[name].bundle.js",
+    publicPath: '/',
+    path: path.resolve(__dirname, "dist"),
+    clean: true,
+  },  
   module: {
     rules: [
       {
@@ -44,7 +30,7 @@ module.exports = {
               ],
             ],
           },
-        },
+        }
       },
       {
         test: /\.css$/,
@@ -52,12 +38,34 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: "file-loader",
-          },
-        ],
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[name][ext]',
+        },
       },
     ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: "Development",
+      template: "./client/index.html",
+      filename: "index.html",
+      }),
+  ],
+  devServer: {
+    open: true,
+    proxy: {
+      "/api/**": "http://localhost:3000"
+    },
+    static: {
+      directory: path.join(__dirname, "./dist"),
+      publicPath: '/',
+      serveIndex: true,
+      watch: true,
+    },
+    historyApiFallback: true,
+    devMiddleware: {
+      publicPath: '/dist/', // Specify the public path for serving the bundle.js file
+    },
   },
 };

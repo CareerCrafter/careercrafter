@@ -16,16 +16,18 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(express.static(__dirname + '/public', { extensions: ["css"] }))
 // --------- SERVING STATIC FILES -----------//
-app.use(express.static("public", { extensions: ["css"] }));
-app.use(express.static(path.resolve(__dirname, "../dist")));
-app.use(express.static("client"));
+
+app.get('*', (req, res, next) => {
+  console.log(req.params);
+  next();
+})
 
 app.get('/api/test', wineController.queryWine, (req, res) => {
   res.status(200).json(res.locals.wineSearch)
 })
-
+app.use('/api/wine', apiRouter);
 
 app.get('/api/searchtest',
 
@@ -94,6 +96,7 @@ app.use((req, res) => res.status(404).send('This is not the page you\'re looking
 
 // ------------GLOBAL ERROR HANDLER ---------------//
 app.use((err, req, res, next) => {
+  console.log(req.query)
   const defaultErr = {
     log: 'Error caught in global handler',
     status: 500,

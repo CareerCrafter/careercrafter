@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
-
 import winebar from "../images/winebar.png";
 import AgeModal from "./AgeModal.jsx";
-import { Auth } from '@supabase/auth-ui-react'
-import { ThemeSupa } from '@supabase/auth-ui-shared'
-import AuthConsumer from "../AuthProvider.jsx";
 import { Outlet } from "react-router-dom";
 
 export default function Homepage() {
   const [open, setOpen] = useState(true);
-  const { session, supabase } = AuthConsumer();  
+  
   return (
     <>
       <div
@@ -39,23 +35,8 @@ export default function Homepage() {
 
           }}
          >
-          <Auth 
-            supabaseClient={supabase}
-            appearance={{
-            theme: ThemeSupa,
-            color: 'white',
-            variables: {
-              default: {
-                colors: {
-                  brand: '#8B6E51',
-                  brandAccent: '#8B6E51',
-                  },
-                },
-              },
-            }}
-            providers={['google', 'facebook', 'twitter']}
-          />
-          </div>
+         
+        </div>
         </>
       }
         <Outlet />

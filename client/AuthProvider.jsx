@@ -9,27 +9,24 @@ const supabase = createClient('https://yehndoowqjqdwarwhgjl.supabase.co', 'eyJhb
 
 
 function useAuth() {
-  
-  const [authed, setAuthed] = React.useState(false);
-  const [user, setUser] = React.useState({});
   const [session, setSession] = React.useState(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-      console.log('session', session)
+      if (session) {
+        setSession(session)
+      }
+      
+      
     })
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)    
-      setUser(session.user.id);
     })
 
     return () => subscription.unsubscribe()
   }, [])
 
   return {
-    user,
-    authed,
     session,
     supabase,
     async login() {

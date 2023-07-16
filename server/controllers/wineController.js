@@ -145,4 +145,31 @@ wineController.getWinesForUser = async (req, res, next) => {
       });
     }
   };
+  wineController.getWineById = async (req, res, next) => {
+    console.log("req params for getWineById", req.params);
+    
+    const sql = 
+    `
+    SELECT *
+       FROM public.wines
+       WHERE wine_id = $1;
+    `
+    ;
+    
+    try {
+      
+        const result = await db.query(sql, [req.params.wineId]);
+        res.locals.wine = result.rows; 
+        next();
+      
+    } catch (error) {
+      next({
+        log: "Error in wineController.getWineById",
+        status: 500,
+        message: {
+          err: `Error in wineController.getWineById: ${error}`,
+        },
+      });
+    }
+  };
 module.exports = wineController;
